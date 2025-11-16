@@ -1,0 +1,21 @@
+<div class="admin-title">{{ titulo }}</div>
+
+<div class="form-admin">
+
+  <label>Nombre</label>
+  <input type="text" [(ngModel)]="producto.nombre">
+
+  <label>Descripción</label>
+  <textarea rows="3" [(ngModel)]="producto.descripcion"></textarea>
+
+  <label>Precio</label>
+  <input type="number" [(ngModel)]="producto.precio">
+
+  <label>Imagen (URL)</label>
+  <input type="text" [(ngModel)]="producto.imagen">
+
+  <label>Disponible</label>
+  <input type="checkbox" [(ngModel)]="producto.disponible">
+
+  <button class="btn-save" (click)="guardar()">💾 Guardar</button>
+</div>

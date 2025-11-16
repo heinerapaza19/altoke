@@ -1,0 +1,213 @@
+<!-- Página de Registro -->
+<div class="auth-container">
+  <div class="auth-background">
+    <div class="bg-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+  </div>
+
+  <div class="auth-content">
+    <div class="auth-card">
+      <!-- Logo -->
+      <div class="auth-logo">
+        <div class="logo-icon-container">
+          <i class="fa fa-motorcycle"></i>
+        </div>
+        <h1 class="logo-title">¡Al Toque!</h1>
+        <p class="logo-subtitle">Crea tu cuenta y comienza a pedir</p>
+      </div>
+
+      <!-- Formulario -->
+      <form (ngSubmit)="onSubmit()" #registerForm="ngForm" class="auth-form">
+        <!-- Información Personal -->
+        <div class="form-section">
+          <h6 class="section-title">
+            <i class="fa fa-user me-2"></i>Información Personal
+          </h6>
+          
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group-modern">
+                <label class="form-label-modern">
+                  <i class="fa fa-user me-2"></i>Nombre <span class="text-danger">*</span>
+                </label>
+                <div class="input-wrapper">
+                  <input 
+                    type="text" 
+                    class="form-control-modern"
+                    [(ngModel)]="formulario.nombre"
+                    name="nombre"
+                    placeholder="Nombre"
+                    required>
+                  <i class="fa fa-user input-icon"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group-modern">
+                <label class="form-label-modern">
+                  <i class="fa fa-user me-2"></i>Apellido <span class="text-danger">*</span>
+                </label>
+                <div class="input-wrapper">
+                  <input 
+                    type="text" 
+                    class="form-control-modern"
+                    [(ngModel)]="formulario.apellido"
+                    name="apellido"
+                    placeholder="Apellido"
+                    required>
+                  <i class="fa fa-user input-icon"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group-modern">
+            <label class="form-label-modern">
+              <i class="fa fa-phone me-2"></i>Teléfono <span class="text-danger">*</span>
+            </label>
+            <div class="input-wrapper">
+              <input 
+                type="tel" 
+                class="form-control-modern"
+                [(ngModel)]="formulario.telefono"
+                name="telefono"
+                placeholder="987654321"
+                required>
+              <i class="fa fa-phone input-icon"></i>
+            </div>
+          </div>
+
+          <div class="form-group-modern">
+            <label class="form-label-modern">
+              <i class="fa fa-envelope me-2"></i>Email <span class="text-danger">*</span>
+            </label>
+            <div class="input-wrapper">
+              <input 
+                type="email" 
+                class="form-control-modern"
+                [(ngModel)]="formulario.email"
+                name="email"
+                placeholder="correo@ejemplo.com"
+                required>
+              <i class="fa fa-envelope input-icon"></i>
+            </div>
+          </div>
+
+          <div class="form-group-modern">
+            <label class="form-label-modern">
+              <i class="fa fa-map-marker-alt me-2"></i>Dirección
+            </label>
+            <div class="input-wrapper">
+              <textarea 
+                class="form-control-modern"
+                rows="2"
+                [(ngModel)]="formulario.direccion"
+                name="direccion"
+                placeholder="Dirección de entrega"></textarea>
+              <i class="fa fa-map-marker-alt input-icon"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Credenciales -->
+        <div class="form-section">
+          <h6 class="section-title">
+            <i class="fa fa-lock me-2"></i>Credenciales de Acceso
+          </h6>
+
+          <div class="form-group-modern">
+            <label class="form-label-modern">
+              <i class="fa fa-user-circle me-2"></i>Usuario <span class="text-danger">*</span>
+            </label>
+            <div class="input-wrapper">
+              <input 
+                type="text" 
+                class="form-control-modern"
+                [(ngModel)]="formulario.username"
+                name="username"
+                placeholder="Nombre de usuario"
+                required>
+              <i class="fa fa-user-circle input-icon"></i>
+            </div>
+          </div>
+
+          <div class="form-group-modern">
+            <label class="form-label-modern">
+              <i class="fa fa-lock me-2"></i>Contraseña <span class="text-danger">*</span>
+            </label>
+            <div class="input-wrapper">
+              <input 
+                type="password" 
+                class="form-control-modern"
+                [(ngModel)]="formulario.password"
+                name="password"
+                placeholder="Mínimo 6 caracteres"
+                required>
+              <i class="fa fa-lock input-icon"></i>
+            </div>
+            <small class="form-hint">La contraseña debe tener al menos 6 caracteres</small>
+          </div>
+
+          <div class="form-group-modern">
+            <label class="form-label-modern">
+              <i class="fa fa-lock me-2"></i>Confirmar Contraseña <span class="text-danger">*</span>
+            </label>
+            <div class="input-wrapper">
+              <input 
+                type="password" 
+                class="form-control-modern"
+                [(ngModel)]="formulario.confirmPassword"
+                name="confirmPassword"
+                placeholder="Repite la contraseña"
+                required>
+              <i class="fa fa-lock input-icon"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Error -->
+        <div *ngIf="error" class="alert-modern alert-error">
+          <i class="fa fa-exclamation-circle me-2"></i>
+          <span>{{ error }}</span>
+        </div>
+
+        <!-- Success -->
+        <div *ngIf="success" class="alert-modern alert-success">
+          <i class="fa fa-check-circle me-2"></i>
+          <span>¡Cuenta creada exitosamente! Redirigiendo...</span>
+        </div>
+
+        <!-- Botón Submit -->
+        <button 
+          type="submit" 
+          class="btn-auth"
+          [disabled]="loading">
+          <span *ngIf="!loading">
+            <i class="fa fa-user-plus me-2"></i>Registrarse
+          </span>
+          <span *ngIf="loading" class="loading-content">
+            <span class="spinner-modern"></span>
+            Creando cuenta...
+          </span>
+        </button>
+      </form>
+
+      <!-- Footer -->
+      <div class="auth-footer">
+        <p class="footer-text">
+          ¿Ya tienes cuenta?
+          <a routerLink="/login" class="footer-link">
+            Inicia sesión aquí
+          </a>
+        </p>
+        <div class="security-badge">
+          <i class="fa fa-shield-alt me-1"></i>
+          <span>Tu información está protegida</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

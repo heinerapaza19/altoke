@@ -1,0 +1,298 @@
+/* ============================================
+   PROMOCIONES - ESTILOS PROFESIONALES
+   ============================================ */
+
+.page-container {
+  padding: 2rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+}
+
+/* HEADER */
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.promo-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 16px rgba(40, 167, 69, 0.3);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 4px 16px rgba(40, 167, 69, 0.3);
+  }
+  50% {
+    box-shadow: 0 6px 24px rgba(40, 167, 69, 0.5);
+  }
+}
+
+.page-title {
+  color: #ffc107;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* PROMOTIONS GRID */
+.promotions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.promotion-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 193, 7, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.promotion-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(255, 193, 7, 0.5);
+  box-shadow: 0 16px 48px rgba(255, 193, 7, 0.4);
+}
+
+.promotion-badge-top {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 3;
+}
+
+.discount-badge {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.promotion-image-container {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.promotion-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.promotion-card:hover .promotion-image {
+  transform: scale(1.1);
+}
+
+.promotion-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.promotion-card:hover .promotion-overlay {
+  opacity: 1;
+}
+
+.btn-overlay {
+  background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+  border: none;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-overlay:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.5);
+}
+
+.promotion-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.promotion-name {
+  color: white;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  font-size: 1.3rem;
+}
+
+.promotion-description {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.promotion-prices {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: rgba(255, 193, 7, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 193, 7, 0.2);
+}
+
+.price-old {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: line-through;
+  font-size: 1.1rem;
+}
+
+.price-new {
+  color: #28a745;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.promotion-dates {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.date-item {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.date-item:last-child {
+  margin-bottom: 0;
+}
+
+.date-item i {
+  color: #ffc107;
+  width: 20px;
+}
+
+.btn-promotion {
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+  border: none;
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(255, 193, 7, 0.3);
+  margin-top: auto;
+}
+
+.btn-promotion:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 193, 7, 0.5);
+  background: linear-gradient(135deg, #ff9800 0%, #ffc107 100%);
+}
+
+/* EMPTY STATE */
+.empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  padding: 3rem;
+}
+
+.empty-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 3rem;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 193, 7, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.empty-icon {
+  font-size: 4rem;
+  color: rgba(255, 193, 7, 0.3);
+  margin-bottom: 1.5rem;
+}
+
+.empty-title {
+  color: white;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.empty-text {
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 1.5rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 1rem;
+  }
+  
+  .promotions-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .page-title {
+    font-size: 2rem;
+  }
+}

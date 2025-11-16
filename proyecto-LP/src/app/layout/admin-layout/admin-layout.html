@@ -1,0 +1,82 @@
+<div class="admin-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fa fa-tools"></i>
+                </div>
+                <h5 class="logo-text">Panel Admin</h5>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+
+                <li class="nav-item">
+                    <a routerLink="/admin" routerLinkActive="active" class="nav-link">
+                        <div class="nav-icon"><i class="fa fa-chart-line"></i></div>
+                        <span class="nav-label">Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a routerLink="/admin/productos" routerLinkActive="active" class="nav-link">
+                        <div class="nav-icon"><i class="fa fa-hamburger"></i></div>
+                        <span class="nav-label">Productos</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a routerLink="/admin/categorias" routerLinkActive="active" class="nav-link">
+                        <div class="nav-icon"><i class="fa fa-tags"></i></div>
+                        <span class="nav-label">Categorías</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a routerLink="/admin/pedidos" routerLinkActive="active" class="nav-link">
+                        <div class="nav-icon"><i class="fa fa-box"></i></div>
+                        <span class="nav-label">Pedidos</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a routerLink="/admin/repartidores" routerLinkActive="active" class="nav-link">
+                        <div class="nav-icon"><i class="fa fa-biking"></i></div>
+                        <span class="nav-label">Repartidores</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a routerLink="/admin/usuarios" routerLinkActive="active" class="nav-link">
+                        <div class="nav-icon"><i class="fa fa-users-cog"></i></div>
+                        <span class="nav-label">Usuarios</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a routerLink="/admin/promociones" routerLinkActive="active" class="nav-link">
+                        <div class="nav-icon"><i class="fa fa-certificate"></i></div>
+                        <span class="nav-label">Promociones</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a routerLink="/inicio" class="nav-link">
+                        <div class="nav-icon"><i class="fa fa-arrow-left"></i></div>
+                        <span class="nav-label">Volver</span>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- CONTENIDO CRUD -->
+    <main class="admin-content">
+        <router-outlet></router-outlet>
+    </main>
+
+</div>

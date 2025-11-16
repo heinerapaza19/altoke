@@ -1,0 +1,150 @@
+<!-- Página de Perfil -->
+<div class="page-container">
+  
+  <div class="page-header">
+    <h2 class="page-title">
+      <i class="fa fa-user me-2"></i> Mi Perfil
+    </h2>
+    <p class="page-subtitle">Gestiona tu información personal y preferencias</p>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="cargando" class="loading-state">
+    <div class="spinner-modern">
+      <div class="spinner-border text-warning" role="status" style="width: 3rem; height: 3rem;">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+    </div>
+    <p class="loading-text">Cargando tu perfil...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error && !cargando" class="error-state">
+    <div class="error-card">
+      <i class="fa fa-exclamation-circle error-icon"></i>
+      <h5 class="error-title">{{ error }}</h5>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!cargando">
+    <div class="col-lg-8">
+      <div class="profile-card">
+        <div class="card-header-modern">
+          <h5 class="card-title-modern">
+            <i class="fa fa-edit me-2"></i>Información Personal
+          </h5>
+          <button class="btn btn-edit" (click)="editando = !editando">
+            <i class="fa" [ngClass]="editando ? 'fa-times' : 'fa-edit'"></i>
+            {{ editando ? 'Cancelar' : 'Editar' }}
+          </button>
+        </div>
+
+        <div class="card-body-modern">
+          <form>
+            <div class="mb-3">
+              <label class="form-label-modern">
+                <i class="fa fa-user me-2 text-warning"></i>Nombre de Usuario <span class="text-danger">*</span>
+              </label>
+              <input type="text" 
+                     class="form-control-modern" 
+                     [(ngModel)]="usuario.username"
+                     name="username"
+                     [readonly]="!editando"
+                     [class.readonly]="!editando"
+                     placeholder="Nombre de usuario">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label-modern">
+                <i class="fa fa-briefcase me-2 text-warning"></i>Empresa
+              </label>
+              <input type="text" 
+                     class="form-control-modern" 
+                     [(ngModel)]="usuario.empresa"
+                     name="empresa"
+                     [readonly]="!editando"
+                     [class.readonly]="!editando"
+                     placeholder="Empresa">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label-modern">
+                <i class="fa fa-user-tag me-2 text-warning"></i>Rol
+              </label>
+              <input type="text" 
+                     class="form-control-modern" 
+                     [(ngModel)]="usuario.rol"
+                     name="rol"
+                     [readonly]="true"
+                     [class.readonly]="true"
+                     placeholder="Rol del usuario">
+              <small class="form-hint">El rol no se puede modificar</small>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label-modern">
+                <i class="fa fa-toggle-on me-2 text-warning"></i>Estado
+              </label>
+              <div class="form-control-modern" [class.readonly]="!editando">
+                <span [class.text-success]="usuario.activo" [class.text-danger]="!usuario.activo">
+                  <i class="fa" [ngClass]="usuario.activo ? 'fa-check-circle' : 'fa-times-circle'"></i>
+                  {{ usuario.activo ? 'Activo' : 'Inactivo' }}
+                </span>
+              </div>
+              <small class="form-hint">El estado se gestiona desde el sistema</small>
+            </div>
+
+            <button *ngIf="editando" 
+                    type="button" 
+                    class="btn btn-save"
+                    (click)="guardarPerfil()">
+              <i class="fa fa-save me-2"></i> Guardar Cambios
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4" *ngIf="!cargando">
+      <div class="profile-card">
+        <div class="avatar-section">
+          <div class="avatar-container">
+            <div class="avatar-placeholder">
+              <i class="fa fa-user"></i>
+            </div>
+            <div class="avatar-overlay">
+              <button class="btn btn-avatar-edit" *ngIf="editando">
+                <i class="fa fa-camera"></i>
+              </button>
+            </div>
+          </div>
+          <h5 class="avatar-name">{{ usuario.username || 'Usuario' }}</h5>
+          <p class="avatar-email">{{ usuario.empresa || 'Sin empresa' }}</p>
+          <div class="avatar-badge">
+            <span class="badge-rol" [ngClass]="'badge-' + (usuario.rol?.toLowerCase() || 'cliente')">
+              {{ usuario.rol || 'CLIENTE' }}
+            </span>
+          </div>
+        </div>
+        
+        <div class="profile-stats">
+          <div class="stat-item">
+            <i class="fa fa-shopping-cart stat-icon"></i>
+            <div class="stat-content">
+              <span class="stat-label">Pedidos</span>
+              <span class="stat-value">0</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fa fa-star stat-icon"></i>
+            <div class="stat-content">
+              <span class="stat-label">Calificación</span>
+              <span class="stat-value">5.0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

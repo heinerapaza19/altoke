@@ -1,0 +1,196 @@
+/* =========================================================
+   PANEL ADMIN - ESTILO OFICIAL AL TOQUE ⚡
+   ========================================================= */
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+}
+
+/* ====================== SIDEBAR ====================== */
+
+.sidebar {
+  width: 270px;
+  min-height: 100vh;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255, 193, 7, 0.2);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 24px rgba(0,0,0,0.25);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.sidebar-header {
+  padding: 2rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 193, 7, 0.2);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: white;
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.45);
+  animation: pulseAdmin 2s infinite;
+}
+
+@keyframes pulseAdmin {
+  0%, 100% { box-shadow: 0 3px 8px rgba(255,193,7,.4); }
+  50% { box-shadow: 0 8px 20px rgba(255,193,7,.7); }
+}
+
+.logo-text {
+  font-size: 1.3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 1rem 0.8rem;
+  overflow-y: auto;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .9rem 1.1rem;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: 0.25s ease;
+  color: rgba(255,255,255,.75);
+  position: relative;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg,#ffc107,#ff9800);
+  transform: scaleY(0);
+  transition: 0.25s ease;
+}
+
+.nav-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255,193,7,.1);
+  color: rgba(255,193,7,.6);
+  transition: 0.25s ease;
+  font-size: 1.1rem;
+}
+
+.nav-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: #ffc107;
+  background: rgba(255,193,7,.1);
+  transform: translateX(5px);
+}
+
+.nav-link:hover::before {
+  transform: scaleY(1);
+}
+
+.nav-link.active {
+  color: #ffc107;
+  background: rgba(255,193,7,.15);
+  box-shadow: 0 4px 10px rgba(255,193,7,.2);
+}
+
+.nav-link.active::before {
+  transform: scaleY(1);
+}
+
+.nav-link.active .nav-icon {
+  background: rgba(255,193,7,.25);
+  color: #ffc107;
+  transform: scale(1.1);
+}
+
+/* SCROLLBAR */
+.sidebar-nav::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(255,193,7,.6);
+  border-radius: 10px;
+}
+
+/* ====================== CRUD CONTENT ====================== */
+
+.admin-content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+/* CARD DASHBOARD */
+
+.admin-card {
+  background: rgba(0,0,0,.35);
+  border: 1px solid rgba(255,193,7,.25);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: .25s ease;
+  backdrop-filter: blur(40px);
+  color: #ffc107;
+  text-align: center;
+  font-weight: 600;
+}
+
+.admin-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(255,193,7,.4);
+}
+
+/* GRID CARDS */
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 1.5rem;
+}
+
+/* ====================== RESPONSIVE ====================== */
+
+@media(max-width:900px){
+  .sidebar { width: 80px; }
+  .nav-label { display: none; }
+  .logo-text { display: none; }
+}

@@ -1,0 +1,297 @@
+<!-- Página de Detalles de Entrega / Checkout -->
+<div class="checkout-container">
+
+  <!-- Toast Notifications -->
+  <div *ngIf="mostrarToast" class="toast-notification toast-{{toastTipo}}" [@slideInOut]>
+    <div class="d-flex align-items-center">
+      <i class="fa me-2" [ngClass]="{
+           'fa-check-circle': toastTipo === 'success',
+           'fa-exclamation-circle': toastTipo === 'error',
+           'fa-info-circle': toastTipo === 'info'
+         }"></i>
+      <span>{{ toastMensaje }}</span>
+    </div>
+  </div>
+
+  <!-- Indicador de Progreso -->
+  <div class="progress-indicator mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div class="step" [class.completed]="pasosCompletados.datosPersonales">
+        <div class="step-icon">
+          <i class="fa" [ngClass]="pasosCompletados.datosPersonales ? 'fa-check' : 'fa-user'"></i>
+        </div>
+        <span class="step-label">Datos Personales</span>
+      </div>
+      <div class="step-line" [class.completed]="pasosCompletados.datosPersonales"></div>
+      <div class="step" [class.completed]="pasosCompletados.direccion">
+        <div class="step-icon">
+          <i class="fa" [ngClass]="pasosCompletados.direccion ? 'fa-check' : 'fa-map-marker-alt'"></i>
+        </div>
+        <span class="step-label">Dirección</span>
+      </div>
+      <div class="step-line" [class.completed]="pasosCompletados.direccion"></div>
+      <div class="step" [class.completed]="pasosCompletados.confirmacion">
+        <div class="step-icon">
+          <i class="fa" [ngClass]="pasosCompletados.confirmacion ? 'fa-check' : 'fa-check-circle'"></i>
+        </div>
+        <span class="step-label">Confirmar</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- FORMULARIO DE ENTREGA -->
+    <div class="col-lg-8">
+      <div class="checkout-card">
+        <h3 class="checkout-title">
+          <i class="fa fa-truck me-2"></i>Detalles de entrega
+        </h3>
+
+        <form>
+          <!-- Datos Personales -->
+          <div class="form-section">
+            <h5 class="section-title">
+              <i class="fa fa-user me-2"></i>Información de contacto
+            </h5>
+
+            <div class="mb-3">
+              <label class="form-label">
+                <i class="fa fa-user me-2 text-warning"></i>Nombre completo <span class="text-danger">*</span>
+              </label>
+              <input type="text" class="form-control form-control-modern" [class.is-invalid]="errores['nombre']"
+                [class.is-valid]="!errores['nombre'] && formulario.nombre" [(ngModel)]="formulario.nombre"
+                (blur)="validarCampo('nombre', formulario.nombre)" (input)="validarCampo('nombre', formulario.nombre)"
+                name="nombre" placeholder="Ingresa tu nombre completo">
+              <div *ngIf="errores['nombre']" class="invalid-feedback d-block">
+                <i class="fa fa-exclamation-circle me-1"></i>{{ errores['nombre'] }}
+              </div>
+              <div *ngIf="!errores['nombre'] && formulario.nombre" class="valid-feedback d-block">
+                <i class="fa fa-check-circle me-1"></i>Nombre válido
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">
+                <i class="fa fa-phone me-2 text-warning"></i>Número de teléfono <span class="text-danger">*</span>
+              </label>
+              <input type="tel" class="form-control form-control-modern" [class.is-invalid]="errores['numero']"
+                [class.is-valid]="!errores['numero'] && formulario.numero" [(ngModel)]="formulario.numero"
+                (blur)="validarCampo('numero', formulario.numero)" (input)="validarCampo('numero', formulario.numero)"
+                name="numero" placeholder="Ej: 980814183">
+              <div *ngIf="errores['numero']" class="invalid-feedback d-block">
+                <i class="fa fa-exclamation-circle me-1"></i>{{ errores['numero'] }}
+              </div>
+              <div *ngIf="!errores['numero'] && formulario.numero" class="valid-feedback d-block">
+                <i class="fa fa-check-circle me-1"></i>Número válido
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">
+                <i class="fa fa-comment-alt me-2 text-warning"></i>Descripción del pedido (opcional)
+              </label>
+              <textarea class="form-control form-control-modern" rows="3" [(ngModel)]="formulario.descripcionPedido"
+                name="descripcionPedido" placeholder="Instrucciones especiales para la entrega..."></textarea>
+            </div>
+          </div>
+
+          <!-- Dirección de Entrega -->
+          <div class="form-section">
+            <h5 class="section-title">
+              <i class="fa fa-map-marker-alt me-2"></i>Dirección de entrega
+            </h5>
+
+            <!-- Búsqueda de dirección con autocompletado -->
+            <div class="position-relative mb-3">
+              <label class="form-label">
+                <i class="fa fa-search me-2 text-warning"></i>Buscar dirección <span class="text-danger">*</span>
+              </label>
+              <div class="input-group input-group-modern">
+                <span class="input-group-text bg-dark border-secondary text-warning">
+                  <i class="fa fa-search"></i>
+                </span>
+                <input type="text" class="form-control form-control-modern" [(ngModel)]="busquedaDireccion"
+                  (input)="buscarSugerencias($event)" (focus)="buscarSugerencias($event)" (blur)="cerrarSugerencias()"
+                  placeholder="Busca tu dirección (ej: Av. Javier Prado, Lima)" autocomplete="off">
+                <button type="button" class="btn btn-warning" (click)="buscarDireccion()"
+                  [disabled]="buscandoDireccion || !busquedaDireccion" title="Buscar dirección">
+                  <span *ngIf="!buscandoDireccion">
+                    <i class="fa fa-search"></i>
+                  </span>
+                  <span *ngIf="buscandoDireccion" class="spinner-border spinner-border-sm" role="status"></span>
+                </button>
+              </div>
+
+              <!-- Dropdown de sugerencias -->
+              <div *ngIf="mostrandoSugerencias && sugerenciasDirecciones.length > 0" class="suggestions-dropdown">
+                <button *ngFor="let sugerencia of sugerenciasDirecciones; let i = index" type="button"
+                  class="suggestion-item" (click)="seleccionarSugerencia(sugerencia)"
+                  (mousedown)="$event.preventDefault()">
+                  <div class="d-flex align-items-start">
+                    <div class="suggestion-number">{{ i + 1 }}</div>
+                    <div class="flex-grow-1">
+                      <div class="suggestion-main">{{ sugerencia.display_name.split(',')[0] }}</div>
+                      <small class="suggestion-detail">{{ sugerencia.display_name }}</small>
+                    </div>
+                    <i class="fa fa-map-marker-alt text-warning ms-2"></i>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <!-- Campo de dirección final -->
+            <div class="mb-3">
+              <label class="form-label">
+                <i class="fa fa-road me-2 text-warning"></i>Dirección completa <span class="text-danger">*</span>
+              </label>
+              <textarea class="form-control form-control-modern" [class.is-invalid]="errores['direccionEntrega']"
+                [class.is-valid]="!errores['direccionEntrega'] && formulario.direccionEntrega" rows="2"
+                [(ngModel)]="formulario.direccionEntrega"
+                (blur)="validarCampo('direccionEntrega', formulario.direccionEntrega)" name="direccionEntrega"
+                placeholder="La dirección se completará automáticamente al seleccionar en el mapa o buscar" readonly
+                required></textarea>
+              <div *ngIf="errores['direccionEntrega']" class="invalid-feedback d-block">
+                <i class="fa fa-exclamation-circle me-1"></i>{{ errores['direccionEntrega'] }}
+              </div>
+            </div>
+
+            <!-- Botones de control del mapa -->
+            <div class="d-flex gap-2 mb-3 flex-wrap align-items-center">
+              <button type="button" class="btn btn-outline-info btn-modern" (click)="obtenerUbicacionActual()"
+                [disabled]="obteniendoUbicacion">
+                <span *ngIf="!obteniendoUbicacion">
+                  <i class="fa fa-crosshairs me-1"></i> Mi Ubicación
+                </span>
+                <span *ngIf="obteniendoUbicacion">
+                  <span class="spinner-border spinner-border-sm me-1"></span> Obteniendo...
+                </span>
+              </button>
+              <button type="button" class="btn btn-outline-warning btn-modern" (click)="verUbicacionSeleccionada()"
+                *ngIf="formulario.latitud !== 0">
+                <i class="fa fa-location-arrow me-1"></i> Ver Ubicación
+              </button>
+              <div class="ms-auto">
+                <small class="text-white-50">
+                  <i class="fa fa-info-circle me-1"></i>
+                  <span *ngIf="formulario.latitud !== 0" class="text-success">
+                    <i class="fa fa-check-circle me-1"></i>
+                    {{ formulario.latitud | number:'1.6-6' }}, {{ formulario.longitud | number:'1.6-6' }}
+                  </span>
+                  <span *ngIf="formulario.latitud === 0" class="text-warning">
+                    Selecciona una ubicación
+                  </span>
+                </small>
+              </div>
+            </div>
+
+            <!-- MAPA -->
+            <div id="map" class="map-container"></div>
+            <div *ngIf="errores['ubicacion']" class="invalid-feedback d-block mt-2">
+              <i class="fa fa-exclamation-circle me-1"></i>{{ errores['ubicacion'] }}
+            </div>
+            <div class="map-instructions mt-2">
+              <small class="text-white-50 d-block mb-1">
+                <i class="fa fa-lightbulb me-1 text-warning"></i>
+                <strong>Consejos:</strong>
+              </small>
+              <small class="text-white-50 d-block">
+                • Escribe una dirección en el buscador y selecciona de las sugerencias
+              </small>
+              <small class="text-white-50 d-block">
+                • Haz clic en el mapa para colocar el marcador
+              </small>
+              <small class="text-white-50 d-block">
+                • Arrastra el marcador para ajustar la ubicación exacta
+              </small>
+            </div>
+          </div>
+
+          <!-- Información Adicional -->
+          <div class="form-section">
+            <h5 class="section-title">
+              <i class="fa fa-info-circle me-2"></i>Información adicional
+            </h5>
+
+            <div class="mb-3">
+              <label class="form-label">
+                <i class="fa fa-city me-2 text-warning"></i>Ciudad <span class="text-danger">*</span>
+              </label>
+              <input type="text" class="form-control form-control-modern" [class.is-invalid]="errores['ciudad']"
+                [class.is-valid]="!errores['ciudad'] && formulario.ciudad" [(ngModel)]="formulario.ciudad"
+                (blur)="validarCampo('ciudad', formulario.ciudad)" (input)="validarCampo('ciudad', formulario.ciudad)"
+                name="ciudad" required>
+              <div *ngIf="errores['ciudad']" class="invalid-feedback d-block">
+                <i class="fa fa-exclamation-circle me-1"></i>{{ errores['ciudad'] }}
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">
+                <i class="fa fa-map-pin me-2 text-warning"></i>Referencia (opcional)
+              </label>
+              <input type="text" class="form-control form-control-modern" [(ngModel)]="formulario.referencia"
+                name="referencia" placeholder="Ej: Frente al parque, casa azul, etc.">
+              <small class="text-white-50">
+                <i class="fa fa-info-circle me-1"></i>
+                Ayuda al repartidor a encontrar tu ubicación más fácilmente
+              </small>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- RESUMEN DEL CARRITO -->
+    <div class="col-lg-4">
+      <div class="checkout-card sticky-summary">
+        <div class="card-header-modern">
+          <h5 class="mb-0">
+            <i class="fa fa-shopping-cart me-2"></i> Resumen del pedido
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="items-list">
+            <div *ngFor="let item of items" class="cart-item">
+              <img [src]="getImageUrl(item.imagen, IMAGE_PLACEHOLDER)" class="item-image"
+                (error)="handleImageError($event, IMAGE_PLACEHOLDER)" [alt]="item.nombre">
+              <div class="item-details">
+                <h6 class="item-name">{{ item.nombre }}</h6>
+                <div class="item-info">
+                  <span class="item-quantity">{{ item.cantidad }}x</span>
+                  <span class="item-price">S/. {{ item.precio | number:'1.2-2' }}</span>
+                </div>
+              </div>
+              <div class="item-subtotal">
+                S/. {{ item.subtotal | number:'1.2-2' }}
+              </div>
+            </div>
+          </div>
+
+          <div class="total-section">
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="total-label">Total a pagar:</span>
+              <span class="total-amount">S/ {{ total | number:'1.2-2' }}</span>
+            </div>
+          </div>
+
+          <button class="btn btn-warning btn-confirm w-100" (click)="confirmarPedido()"
+            [disabled]="items.length === 0 || enviandoPedido || validandoFormulario">
+            <span *ngIf="!enviandoPedido && !validandoFormulario">
+              <i class="fa fa-check-circle me-2"></i> Confirmar Pedido
+            </span>
+            <span *ngIf="enviandoPedido || validandoFormulario">
+              <span class="spinner-border spinner-border-sm me-2"></span>
+              {{ enviandoPedido ? 'Procesando...' : 'Validando...' }}
+            </span>
+          </button>
+
+          <small class="text-white-50 d-block text-center mt-3">
+            <i class="fa fa-shield-alt me-1"></i>
+            Tu información está protegida
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

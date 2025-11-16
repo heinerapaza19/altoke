@@ -1,0 +1,119 @@
+<!-- Página de Carrito de Compras -->
+<div class="page-container">
+  
+  <!-- HEADER -->
+  <div class="page-header">
+    <a routerLink="/productos" class="back-link">
+      <i class="fa fa-arrow-left me-2"></i> Seguir comprando
+    </a>
+    <h2 class="page-title">
+      <i class="fa fa-shopping-cart me-2"></i>Mi Carrito de Compras
+    </h2>
+  </div>
+
+  <!-- LISTA DE PRODUCTOS -->
+  <div class="row">
+    <div class="col-lg-8">
+      <div *ngIf="items.length === 0" class="empty-cart">
+        <div class="empty-cart-icon">
+          <i class="fa fa-shopping-cart"></i>
+        </div>
+        <h4 class="empty-cart-title">Tu carrito está vacío</h4>
+        <p class="empty-cart-text">Agrega productos deliciosos a tu carrito para comenzar</p>
+        <a routerLink="/productos" class="btn btn-warning btn-lg">
+          <i class="fa fa-store me-2"></i>Explorar productos
+        </a>
+      </div>
+
+      <div *ngFor="let item of items" class="cart-item-card">
+        <div class="cart-item-content">
+          <div class="cart-item-image-container">
+            <img [src]="getImageUrl(item.imagen, IMAGE_PLACEHOLDER)" 
+                 class="cart-item-image" 
+                 [alt]="item.nombre"
+                 (error)="handleImageError($event, IMAGE_PLACEHOLDER)">
+          </div>
+          
+          <div class="cart-item-details">
+            <h6 class="cart-item-name">{{ item.nombre }}</h6>
+            <p class="cart-item-price">S/ {{ item.precio | number:'1.2-2' }} c/u</p>
+            
+            <div class="cart-item-controls">
+              <button class="btn btn-quantity" 
+                      (click)="actualizarCantidad(item, item.cantidad - 1)">
+                <i class="fa fa-minus"></i>
+              </button>
+              <span class="quantity-display">{{ item.cantidad }}</span>
+              <button class="btn btn-quantity" 
+                      (click)="actualizarCantidad(item, item.cantidad + 1)">
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
+            
+            <p class="cart-item-subtotal">
+              Subtotal: <span class="subtotal-amount">S/ {{ item.subtotal | number:'1.2-2' }}</span>
+            </p>
+          </div>
+          
+          <div class="cart-item-actions">
+            <button class="btn btn-remove" 
+                    (click)="eliminarItem(item.idProducto)">
+              <i class="fa fa-trash me-1"></i> Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESUMEN DEL CARRITO -->
+    <div class="col-lg-4">
+      <div class="summary-card">
+        <div class="summary-header">
+          <h5 class="summary-title">
+            <i class="fa fa-receipt me-2"></i> Resumen del pedido
+          </h5>
+        </div>
+        <div class="summary-body">
+          <div class="summary-items">
+            <!-- Lista de productos únicos -->
+            <div class="summary-products-list">
+              <div *ngFor="let item of itemsUnicos" class="summary-product-item">
+                <div class="summary-product-info">
+                  <span class="summary-product-name">{{ item.nombre }}</span>
+                  <span class="summary-product-quantity">x{{ item.cantidad }}</span>
+                </div>
+                <span class="summary-product-price">S/ {{ item.subtotal | number:'1.2-2' }}</span>
+              </div>
+            </div>
+            
+            <div class="summary-divider"></div>
+            
+            <div class="summary-item">
+              <span class="summary-label">Total productos ({{ itemsUnicos.length }})</span>
+              <span class="summary-value">S/ {{ total | number:'1.2-2' }}</span>
+            </div>
+            
+            <div class="summary-divider"></div>
+            
+            <div class="summary-total">
+              <span class="total-label">Total a pagar:</span>
+              <span class="total-amount">S/ {{ total | number:'1.2-2' }}</span>
+            </div>
+          </div>
+          
+          <button class="btn btn-confirm w-100" 
+                  (click)="confirmarPedido()"
+                  [disabled]="items.length === 0">
+            <i class="fa fa-check-circle me-2"></i> Confirmar Pedido
+          </button>
+          
+          <small class="summary-note">
+            <i class="fa fa-shield-alt me-1"></i>
+            Pago seguro y protegido
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

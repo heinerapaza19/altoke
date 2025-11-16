@@ -1,0 +1,154 @@
+<!-- Layout Principal - ¡Al Toque! -->
+<div class="app-layout">
+  
+  <!-- SIDEBAR IZQUIERDO -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-container">
+        <div class="logo-icon">
+          <i class="fa fa-motorcycle"></i>
+        </div>
+        <h5 class="logo-text">
+          ¡Al Toque!
+        </h5>
+      </div>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a routerLink="/inicio" 
+             routerLinkActive="active" 
+             class="nav-link">
+            <div class="nav-icon">
+              <i class="fa fa-home"></i>
+            </div>
+            <span class="nav-label">Inicio</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/productos" 
+             routerLinkActive="active" 
+             class="nav-link">
+            <div class="nav-icon">
+              <i class="fa fa-utensils"></i>
+            </div>
+            <span class="nav-label">Productos</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/carrito" 
+             routerLinkActive="active" 
+             class="nav-link">
+            <div class="nav-icon">
+              <i class="fa fa-shopping-cart"></i>
+              <span *ngIf="carritoCount > 0" class="nav-badge">{{ carritoCount }}</span>
+            </div>
+            <span class="nav-label">Carrito</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/pedidos" 
+             routerLinkActive="active" 
+             class="nav-link">
+            <div class="nav-icon">
+              <i class="fa fa-clock"></i>
+            </div>
+            <span class="nav-label">Pedidos</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/promociones" 
+             routerLinkActive="active" 
+             class="nav-link">
+            <div class="nav-icon">
+              <i class="fa fa-star"></i>
+            </div>
+            <span class="nav-label">Promociones</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/perfil" 
+             routerLinkActive="active" 
+             class="nav-link">
+            <div class="nav-icon">
+              <i class="fa fa-user"></i>
+            </div>
+            <span class="nav-label">Perfil</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/soporte" 
+             routerLinkActive="active" 
+             class="nav-link">
+            <div class="nav-icon">
+              <i class="fa fa-question-circle"></i>
+            </div>
+            <span class="nav-label">Soporte</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="main-content">
+    
+    <!-- HEADER SUPERIOR -->
+    <header class="app-header">
+      <div class="header-left">
+        <button class="header-btn" title="Notificaciones">
+          <i class="fa fa-bell"></i>
+          <span class="notification-dot"></span>
+        </button>
+        <button class="header-btn" title="Seguir Pedido">
+          <i class="fa fa-search me-1"></i>
+          <span>Seguir Pedido</span>
+        </button>
+        <button class="header-btn" title="Modo Oscuro">
+          <i class="fa fa-moon"></i>
+        </button>
+      </div>
+      
+      <div class="header-right">
+        <!-- Cuando está autenticado -->
+        <div *ngIf="isAuthenticated" class="user-section">
+           <!---<div class="user-avatar-container">
+          <img [src]="getImageUrl(usuario?.imagen, IMAGE_PLACEHOLDER_AVATAR)" 
+                 alt="Usuario" 
+                 class="user-avatar"
+                 (error)="handleImageError($event, IMAGE_PLACEHOLDER_AVATAR)">
+            <div class="avatar-status"></div>
+          </div>-->
+          <div class="user-info">
+            <span class="user-greeting">Hola,</span>
+            <span class="user-name">{{ usuario?.nombre || 'Usuario' }}</span>
+          </div>
+          <button class="btn-logout" (click)="cerrarSesion()" title="Cerrar Sesión">
+            <i class="fa fa-sign-out-alt"></i>
+          </button>
+        </div>
+        
+        <!-- Cuando NO está autenticado -->
+        <div *ngIf="!isAuthenticated" class="auth-section">
+          <button class="btn-login" routerLink="/login">
+            <i class="fa fa-sign-in-alt me-2"></i>
+            Iniciar Sesión
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENIDO DINÁMICO -->
+    <main class="app-main">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+</div>
+
+<!-- Botón flotante de chat -->
+<button class="chat-button" title="Chat de Soporte">
+  <i class="fa fa-comments"></i>
+  <span class="chat-pulse"></span>
+</button>

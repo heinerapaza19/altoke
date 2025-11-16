@@ -1,0 +1,80 @@
+<!-- Página de Historial de Pedidos -->
+<div class="page-container">
+  
+  <div class="page-header">
+    <h2 class="page-title">
+      <i class="fa fa-clock me-2"></i> Historial de Pedidos
+    </h2>
+    <p class="page-subtitle">Revisa el estado y detalles de todos tus pedidos</p>
+  </div>
+
+  <div *ngIf="pedidos.length === 0" class="empty-state">
+    <div class="empty-card">
+      <i class="fa fa-receipt empty-icon"></i>
+      <h4 class="empty-title">No tienes pedidos aún</h4>
+      <p class="empty-text">Realiza tu primer pedido y aparecerá aquí</p>
+      <a routerLink="/productos" class="btn btn-warning btn-lg">
+        <i class="fa fa-store me-2"></i>Explorar productos
+      </a>
+    </div>
+  </div>
+
+  <div *ngFor="let pedido of pedidos" class="order-card">
+    <div class="order-header">
+      <div class="order-info">
+        <h5 class="order-number">Pedido #{{ pedido.idPedido }}</h5>
+        <p class="order-date">
+          <i class="fa fa-calendar me-2"></i>{{ formatearFecha(pedido.fecha) }}
+        </p>
+      </div>
+      <span class="order-status" [ngClass]="'status-' + obtenerColorEstado(pedido.estado)">
+        <i class="fa" [ngClass]="obtenerIconoEstado(pedido.estado)"></i>
+        {{ pedido.estado }}
+      </span>
+    </div>
+
+    <div class="order-body">
+      <div class="order-details">
+        <div class="detail-item">
+          <i class="fa fa-user detail-icon"></i>
+          <div class="detail-content">
+            <span class="detail-label">Cliente</span>
+            <span class="detail-value">{{ pedido.cliente }}</span>
+          </div>
+        </div>
+
+        <div class="detail-item" *ngIf="pedido.repartidor">
+          <i class="fa fa-motorcycle detail-icon"></i>
+          <div class="detail-content">
+            <span class="detail-label">Repartidor</span>
+            <span class="detail-value">{{ pedido.repartidor }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-items">
+        <h6 class="items-title">
+          <i class="fa fa-list me-2"></i>Detalles del pedido:
+        </h6>
+        <div class="items-list">
+          <div *ngFor="let detalle of pedido.detalles" class="item-row">
+            <span class="item-name">{{ detalle.producto }}</span>
+            <span class="item-quantity">x{{ detalle.cantidad }}</span>
+            <span class="item-subtotal">S/ {{ detalle.subtotal | number:'1.2-2' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="order-footer">
+      <div class="order-total">
+        <span class="total-label">Total:</span>
+        <span class="total-amount">S/ {{ pedido.total | number:'1.2-2' }}</span>
+      </div>
+      <button class="btn btn-details">
+        <i class="fa fa-eye me-1"></i>Ver detalles
+      </button>
+    </div>
+  </div>
+
+</div>

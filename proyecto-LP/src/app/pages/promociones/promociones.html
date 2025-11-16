@@ -1,0 +1,83 @@
+<!-- Página de Promociones -->
+<div class="page-container">
+  
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="promo-badge">
+      <i class="fa fa-fire me-2"></i>Promociones Activas
+    </div>
+    <h2 class="page-title">
+      <i class="fa fa-star me-2"></i>Ofertas Especiales
+    </h2>
+    <p class="page-subtitle">Aprovecha nuestras mejores ofertas y ahorra en tus pedidos favoritos</p>
+  </div>
+
+  <!-- GRID DE PROMOCIONES -->
+  <div class="promotions-grid" *ngIf="promocionesActivas.length > 0">
+    <div *ngFor="let promocion of promocionesActivas" class="promotion-card">
+      <div class="promotion-badge-top">
+        <span class="discount-badge">-{{ promocion.descuento }}%</span>
+      </div>
+      
+      <div class="promotion-image-container">
+        <img [src]="getImageUrl(obtenerProducto(promocion.idProducto)?.imagen, IMAGE_PLACEHOLDER)" 
+             class="promotion-image" 
+             [alt]="promocion.nombre"
+             (error)="handleImageError($event, IMAGE_PLACEHOLDER)">
+        <div class="promotion-overlay">
+          <button class="btn btn-overlay" 
+                  (click)="agregarAlCarrito(promocion)">
+            <i class="fa fa-cart-plus me-1"></i>Agregar al Carrito
+          </button>
+        </div>
+      </div>
+      
+      <div class="promotion-body">
+        <h5 class="promotion-name">{{ promocion.nombre }}</h5>
+        <p class="promotion-description">
+          {{ promocion.descripcion }}
+        </p>
+        
+        <!-- PRECIOS -->
+        <div class="promotion-prices" *ngIf="obtenerProducto(promocion.idProducto)">
+          <span class="price-old">
+            S/ {{ obtenerProducto(promocion.idProducto).precio | number:'1.2-2' }}
+          </span>
+          <span class="price-new">
+            S/ {{ calcularPrecioConDescuento(obtenerProducto(promocion.idProducto).precio, promocion.descuento) | number:'1.2-2' }}
+          </span>
+        </div>
+
+        <!-- FECHAS -->
+        <div class="promotion-dates">
+          <div class="date-item">
+            <i class="fa fa-calendar-alt me-2"></i>
+            <span>Inicio: {{ formatearFecha(promocion.fechaInicio) }}</span>
+          </div>
+          <div class="date-item">
+            <i class="fa fa-calendar-check me-2"></i>
+            <span>Fin: {{ formatearFecha(promocion.fechaFin) }}</span>
+          </div>
+        </div>
+
+        <button class="btn btn-promotion w-100" 
+                (click)="agregarAlCarrito(promocion)">
+          <i class="fa fa-cart-plus me-2"></i>Agregar al Carrito
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MENSAJE SI NO HAY PROMOCIONES -->
+  <div *ngIf="promocionesActivas.length === 0" class="empty-state">
+    <div class="empty-card">
+      <i class="fa fa-star empty-icon"></i>
+      <h4 class="empty-title">No hay promociones activas</h4>
+      <p class="empty-text">Vuelve pronto para ver nuestras ofertas especiales</p>
+      <a routerLink="/productos" class="btn btn-warning">
+        <i class="fa fa-store me-2"></i>Explorar productos
+      </a>
+    </div>
+  </div>
+
+</div>

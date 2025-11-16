@@ -1,0 +1,52 @@
+.repartidor-layout {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(135deg,#1a1a1a,#212121);
+}
+
+.sidebar {
+  width: 260px;
+  padding: 2rem 1rem;
+  background: rgba(0,0,0,.45);
+  border-right: 1px solid rgba(255,193,7,.25);
+}
+
+.logo {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #ffc107;
+  display: flex;
+  gap: .7rem;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+
+.menu a {
+  display: block;
+  padding: .9rem;
+  color: rgba(255,255,255,.8);
+  text-decoration: none;
+  border-radius: 10px;
+  transition: .2s;
+}
+
+.menu a:hover,
+.menu a.active {
+  color: #ffc107;
+  background: rgba(255,193,7,.15);
+  transform: translateX(5px);
+}
+
+.content {
+  flex: 1;
+  padding: 2rem;
+  color: white;
+}

@@ -1,0 +1,71 @@
+.panel {
+  padding: 1.5rem;
+  background: #141414;
+  border-radius: 12px;
+  color: white;
+}
+
+.title {
+  font-size: 1.8rem;
+  margin-bottom: .6rem;
+  font-weight: 700;
+  color: #f1c40f;
+}
+
+.new-btn {
+  background: #f39c12;
+  color: black;
+  padding: .6rem 1rem;
+  border-radius: 6px;
+  border: none;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th {
+  background: #222;
+  padding: .7rem;
+  text-align: left;
+}
+
+.admin-table td {
+  padding: .6rem;
+  border-bottom: 1px solid #333;
+}
+
+.admin-table img {
+  border-radius: 8px;
+}
+
+.badge {
+  padding: .3rem .6rem;
+  border-radius: 4px;
+  font-size: .8rem;
+  background: #e74c3c;
+}
+
+.badge.ok {
+  background: #2ecc71;
+}
+
+.edit,
+.delete {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.edit:hover { color: #3498db; }
+.delete:hover { color: #e74c3c; }
+
+.load {
+  text-align: center;
+  margin-top: 1.5rem;
+}

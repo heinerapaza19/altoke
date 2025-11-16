@@ -1,0 +1,112 @@
+<!-- Página de Catálogo de Productos -->
+<div class="page-container">
+  
+  <!-- HEADER CON BÚSQUEDA -->
+  <div class="page-header">
+    <h2 class="page-title">
+      <i class="fa fa-store me-2"></i>Catálogo de productos
+    </h2>
+    
+    <div class="search-container">
+      <div class="input-group-modern">
+        <span class="input-group-text-modern">
+          <i class="fa fa-search"></i>
+        </span>
+        <input type="text" 
+               class="form-control-modern" 
+               placeholder="Buscar productos..." 
+               [(ngModel)]="busqueda"
+               (input)="buscar()">
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTROS DE CATEGORÍAS -->
+  <div class="filters-section">
+    <div class="filters-scroll">
+      <button 
+        *ngFor="let cat of categorias"
+        class="filter-btn"
+        [class.active]="categoriaSeleccionada === cat.nombre"
+        (click)="filtrarPorCategoria(cat.nombre)">
+        <i class="fa fa-tag me-2"></i>{{ cat.nombre }}
+      </button>
+      <button 
+        class="filter-btn"
+        [class.active]="categoriaSeleccionada === 'Todos'"
+        (click)="filtrarPorCategoria('Todos')">
+        <i class="fa fa-th me-2"></i>Todos
+      </button>
+    </div>
+  </div>
+
+  <!-- LOADING STATE -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner-modern">
+      <div class="spinner-border text-warning" role="status" style="width: 3rem; height: 3rem;">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+    </div>
+    <p class="loading-text">Cargando productos...</p>
+  </div>
+
+  <!-- ERROR STATE -->
+  <div *ngIf="error && !loading" class="error-state">
+    <div class="error-card">
+      <i class="fa fa-exclamation-circle error-icon"></i>
+      <h5 class="error-title">{{ error }}</h5>
+      <button class="btn btn-warning" (click)="cargarProductos()">
+        <i class="fa fa-refresh me-1"></i>Reintentar
+      </button>
+    </div>
+  </div>
+
+  <!-- GRID DE PRODUCTOS -->
+  <div *ngIf="!loading && !error" class="products-grid">
+    <div *ngFor="let producto of productosFiltrados" class="product-card">
+      <div class="product-image-container">
+        <img [src]="getImageUrl(producto.imagen, IMAGE_PLACEHOLDER)" 
+             class="product-image" 
+             [alt]="producto.nombre"
+             (error)="handleImageError($event, IMAGE_PLACEHOLDER)">
+        <div *ngIf="!producto.disponible" class="product-unavailable">
+          <span class="unavailable-badge">No Disponible</span>
+        </div>
+        <div class="product-overlay">
+          <button class="btn btn-overlay" 
+                  (click)="agregarAlCarrito(producto)"
+                  [disabled]="!producto.disponible">
+            <i class="fa fa-cart-plus me-1"></i>Agregar
+          </button>
+        </div>
+      </div>
+      <div class="product-body">
+        <h6 class="product-name">{{ producto.nombre }}</h6>
+        <p class="product-description">
+          {{ producto.descripcion || 'Sin descripción' }}
+        </p>
+        <div class="product-footer">
+          <span class="product-price">S/. {{ producto.precio | number:'1.2-2' }}</span>
+          <button class="btn btn-add-cart" 
+                  (click)="agregarAlCarrito(producto)"
+                  [disabled]="!producto.disponible">
+            <i class="fa fa-cart-plus"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MENSAJE SI NO HAY PRODUCTOS -->
+  <div *ngIf="!loading && !error && productosFiltrados.length === 0" class="empty-state">
+    <div class="empty-card">
+      <i class="fa fa-search empty-icon"></i>
+      <h4 class="empty-title">No se encontraron productos</h4>
+      <p class="empty-text">Intenta con otros filtros o busca algo diferente</p>
+      <button class="btn btn-warning" (click)="categoriaSeleccionada = 'Todos'; aplicarFiltros()">
+        <i class="fa fa-th me-1"></i>Ver todos los productos
+      </button>
+    </div>
+  </div>
+
+</div>

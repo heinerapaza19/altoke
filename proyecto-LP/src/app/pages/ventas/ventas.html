@@ -1,0 +1,104 @@
+<!-- Página de Inicio - ¡Al Toque! -->
+<div class="page-container">
+  
+  <!-- HERO SECTION -->
+  <div class="hero-section">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h1 class="hero-title">
+          El Sabor que Quieres,<br>
+          a la Velocidad que Necesitas.
+        </h1>
+        <p class="hero-subtitle">
+          Al Toque te conecta con tus antojos. Comida, bebidas, postres y más, entregados en tu puerta con solo un clic. ¿Qué se te antoja hoy?
+        </p>
+        <button class="btn btn-warning btn-hero" routerLink="/productos">
+          <i class="fa fa-shopping-bag me-2"></i>¡Pide ahora!
+        </button>
+      </div>
+      <div class="col-lg-6 text-center">
+        <div class="hero-image-container">
+          <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&h=600&fit=crop" 
+               alt="Delivery" 
+               class="hero-image">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARDS DE CARACTERÍSTICAS -->
+  <div class="features-section">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-warning">
+            <i class="fa fa-bullseye"></i>
+          </div>
+          <h5 class="feature-title">Explora y Descubre</h5>
+          <p class="feature-text">
+            Navega por un universo de sabores. Filtra, busca y encuentra tus antojos en segundos.
+          </p>
+          <a routerLink="/productos" class="feature-link">
+            Explorar catálogo <i class="fa fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-info">
+            <i class="fa fa-map-marker-alt"></i>
+          </div>
+          <h5 class="feature-title">Sigue tu Antojo</h5>
+          <p class="feature-text">
+            No pierdas de vista tu pedido. Observa en tiempo real a tu repartidor.
+          </p>
+          <a routerLink="/pedidos" class="feature-link">
+            Ver mis pedidos <i class="fa fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-success">
+            <i class="fa fa-shopping-bag"></i>
+          </div>
+          <h5 class="feature-title">Beneficios Exclusivos</h5>
+          <p class="feature-text">
+            Accede a ofertas únicas y descuentos especiales solo para ti.
+          </p>
+          <a routerLink="/promociones" class="feature-link">
+            Ver ofertas <i class="fa fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORÍAS POPULARES -->
+  <div class="categories-section">
+    <h3 class="section-title">
+      <i class="fa fa-tags me-2"></i>Categorías Populares
+    </h3>
+    <div class="categories-scroll">
+      <div *ngFor="let categoria of categorias" 
+           class="category-card"
+           routerLink="/productos">
+        <div class="category-image-container">
+          <img [src]="categoria.imagen" 
+               *ngIf="categoria.imagen !== null"
+               class="category-image" 
+               [alt]="categoria.nombre">
+          <div *ngIf="!categoria.imagen" class="category-placeholder">
+            <i class="fa fa-image"></i>
+          </div>
+        </div>
+        <div class="category-body">
+          <h6 class="category-name">{{ categoria.nombre }}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

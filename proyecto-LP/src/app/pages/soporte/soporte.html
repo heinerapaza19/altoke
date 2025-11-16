@@ -1,0 +1,144 @@
+<!-- Página de Soporte -->
+<div class="page-container">
+  
+  <div class="page-header">
+    <h2 class="page-title">
+      <i class="fa fa-question-circle me-2"></i> Centro de Soporte
+    </h2>
+    <p class="page-subtitle">Estamos aquí para ayudarte. Encuentra respuestas rápidas o contáctanos directamente</p>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="support-card">
+        <div class="card-header-modern">
+          <h5 class="card-title-modern">
+            <i class="fa fa-question-circle me-2"></i>Preguntas Frecuentes
+          </h5>
+        </div>
+        <div class="card-body-modern">
+          <div class="faq-list">
+            <div class="faq-item">
+              <button class="faq-question" (click)="toggleFaq(1)">
+                <i class="fa fa-shopping-cart me-2"></i>
+                ¿Cómo realizo un pedido?
+                <i class="fa fa-chevron-down ms-auto" [ngClass]="{'fa-chevron-up': faqOpen === 1}"></i>
+              </button>
+              <div class="faq-answer" [class.open]="faqOpen === 1">
+                <p>Navega por nuestro catálogo de productos, agrega los items que deseas a tu carrito y completa el proceso de checkout. Puedes pagar con tarjeta o efectivo al momento de la entrega.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" (click)="toggleFaq(2)">
+                <i class="fa fa-clock me-2"></i>
+                ¿Cuánto tiempo tarda la entrega?
+                <i class="fa fa-chevron-down ms-auto" [ngClass]="{'fa-chevron-up': faqOpen === 2}"></i>
+              </button>
+              <div class="faq-answer" [class.open]="faqOpen === 2">
+                <p>El tiempo de entrega promedio es de 30-45 minutos, dependiendo de tu ubicación y la distancia desde nuestro restaurante. Puedes seguir tu pedido en tiempo real desde la sección "Mis Pedidos".</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" (click)="toggleFaq(3)">
+                <i class="fa fa-credit-card me-2"></i>
+                ¿Qué métodos de pago aceptan?
+                <i class="fa fa-chevron-down ms-auto" [ngClass]="{'fa-chevron-up': faqOpen === 3}"></i>
+              </button>
+              <div class="faq-answer" [class.open]="faqOpen === 3">
+                <p>Aceptamos pagos con tarjeta de crédito/débito, efectivo al momento de la entrega, y transferencias bancarias. Todos los pagos son seguros y protegidos.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" (click)="toggleFaq(4)">
+                <i class="fa fa-undo me-2"></i>
+                ¿Puedo cancelar o modificar mi pedido?
+                <i class="fa fa-chevron-down ms-auto" [ngClass]="{'fa-chevron-up': faqOpen === 4}"></i>
+              </button>
+              <div class="faq-answer" [class.open]="faqOpen === 4">
+                <p>Puedes cancelar o modificar tu pedido siempre y cuando no haya sido preparado aún. Contacta con nuestro equipo de soporte lo antes posible para realizar cambios.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" (click)="toggleFaq(5)">
+                <i class="fa fa-star me-2"></i>
+                ¿Cómo puedo dejar una reseña?
+                <i class="fa fa-chevron-down ms-auto" [ngClass]="{'fa-chevron-up': faqOpen === 5}"></i>
+              </button>
+              <div class="faq-answer" [class.open]="faqOpen === 5">
+                <p>Después de recibir tu pedido, recibirás un email con un enlace para dejar tu reseña. También puedes hacerlo desde la sección "Mis Pedidos" en tu perfil.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="support-card">
+        <div class="card-header-modern">
+          <h5 class="card-title-modern">
+            <i class="fa fa-headset me-2"></i>Contáctanos
+          </h5>
+        </div>
+        <div class="card-body-modern">
+          <div class="contact-methods">
+            <a href="tel:980814183" class="contact-item">
+              <div class="contact-icon contact-icon-phone">
+                <i class="fa fa-phone"></i>
+              </div>
+              <div class="contact-content">
+                <span class="contact-label">Teléfono</span>
+                <span class="contact-value">980814183</span>
+              </div>
+            </a>
+
+            <a href="mailto:soporte@altoque.com" class="contact-item">
+              <div class="contact-icon contact-icon-email">
+                <i class="fa fa-envelope"></i>
+              </div>
+              <div class="contact-content">
+                <span class="contact-label">Email</span>
+                <span class="contact-value">soporte@altoque.com</span>
+              </div>
+            </a>
+
+            <a href="https://wa.me/51980814183" target="_blank" class="contact-item">
+              <div class="contact-icon contact-icon-whatsapp">
+                <i class="fa fa-whatsapp"></i>
+              </div>
+              <div class="contact-content">
+                <span class="contact-label">WhatsApp</span>
+                <span class="contact-value">+51 980814183</span>
+              </div>
+            </a>
+          </div>
+
+          <div class="contact-hours">
+            <h6 class="hours-title">
+              <i class="fa fa-clock me-2"></i>Horarios de Atención
+            </h6>
+            <div class="hours-list">
+              <div class="hours-item">
+                <span class="hours-day">Lunes - Viernes</span>
+                <span class="hours-time">9:00 AM - 10:00 PM</span>
+              </div>
+              <div class="hours-item">
+                <span class="hours-day">Sábados</span>
+                <span class="hours-time">10:00 AM - 11:00 PM</span>
+              </div>
+              <div class="hours-item">
+                <span class="hours-day">Domingos</span>
+                <span class="hours-time">11:00 AM - 9:00 PM</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

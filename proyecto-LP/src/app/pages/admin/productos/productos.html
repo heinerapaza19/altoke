@@ -1,0 +1,39 @@
+<div class="panel">
+
+  <h2 class="title">🍕 Gestión de Productos</h2>
+
+  <button class="new-btn">
+    ➕ Nuevo Producto
+  </button>
+
+  <table class="admin-table" *ngIf="!loading">
+    <thead>
+      <tr>
+        <th>📷 Imagen</th>
+        <th>📦 Nombre</th>
+        <th>📝 Descripción</th>
+        <th>💵 Precio</th>
+        <th>✔ Disponible</th>
+        <th>⚙ Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of productos">
+        <td><img [src]="'/assets/img/'+p.imagen" width="60"></td>
+        <td>{{ p.nombre }}</td>
+        <td>{{ p.descripcion }}</td>
+        <td>S/ {{ p.precio }}</td>
+        <td>
+          <span class="badge" [class.ok]="p.disponible==1"> {{ p.disponible ? 'Sí' : 'No' }} </span>
+        </td>
+        <td>
+          <button class="edit">✏️</button>
+          <button class="delete" (click)="eliminar(p.idProducto)">🗑️</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  
+
+</div>

@@ -1,0 +1,53 @@
+<div class="dashboard">
+
+  <div class="stats-grid">
+    <div class="stat-card" *ngFor="let c of cards">
+      <div class="icon-box"><i class="{{ c.icon }}"></i></div>
+      <div>
+        <span class="label">{{ c.label }}</span>
+        <span class="value">{{ c.value }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="charts-grid">
+
+    <!-- DOUGHNUT -->
+    <div class="chart-card">
+      <h3>Pedidos por Estado</h3>
+      <canvas
+        baseChart
+        height="250"
+        [type]="'doughnut'"
+        [data]="pieData"
+        [options]="pieOptions">
+      </canvas>
+    </div>
+
+    <!-- BAR -->
+    <div class="chart-card">
+      <h3>Ventas por Mes</h3>
+      <canvas
+        baseChart
+        height="250"
+        [type]="'bar'"
+        [data]="barData"
+        [options]="barOptions">
+      </canvas>
+    </div>
+
+    <!-- LINE -->
+    <div class="chart-card">
+      <h3>Categorías más vendidas</h3>
+      <canvas
+        baseChart
+        height="250"
+        [type]="'line'"
+        [data]="lineData"
+        [options]="lineOptions">
+      </canvas>
+    </div>
+
+  </div>
+
+</div>
